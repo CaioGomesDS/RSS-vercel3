@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | RSS Studio Automotivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+        }
+        .login-form, .editor-section {
+            display: none;
+        }
+        .login-form.active, .editor-section.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: inherit;
+        }
+        .faq-edit-item {
+            padding: 1rem;
+            background: var(--bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+        .btn-save {
+            width: 100%;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="admin-container">
+            <h1 class="title-secondary"><span class="highlight">Painel de Edição</span></h1>
+            
+            <!-- Login -->
+            <div id="login-section" class="login-form active">
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="username" placeholder="Admin">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="password" placeholder="****">
+                </div>
+                <button onclick="login()" class="btn btn-primary">Entrar</button>
+                <p id="login-error" style="color: #ff4444; margin-top: 10px; display: none;">Dados incorretos!</p>
+            </div>
+
+            <!-- Editor -->
+            <div id="editor-section" class="editor-section">
+                <h3>Editar Perguntas Frequentes (FAQ)</h3>
+                <div id="faq-list">
+                    <!-- Gerado via JS -->
+                </div>
+                <button onclick="saveChanges()" class="btn btn-primary btn-save">Salvar Alterações</button>
+                <button onclick="logout()" class="btn btn-glass" style="margin-top: 10px; width: 100%;">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="content.js"></script>
+    <script>
+        // Login Logic
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (user === 'caio' && pass === '1234') {
+                document.getElementById('login-section').classList.remove('active');
+                document.getElementById('editor-section').classList.add('active');
+                loadEditor();
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // Editor Logic
+        function loadEditor() {
+            const faqList = document.getElementById('faq-list');
+            // Carrega do localStorage ou do arquivo content.js
+            const savedContent = localStorage.getItem('siteContent');
+            const content = savedContent ? JSON.parse(savedContent) : window.siteContent;
+
+            faqList.innerHTML = content.faq.map((item, index) => `
+                <div class="faq-edit-item">
+                    <div class="form-group">
+                        <label>Pergunta ${index + 1}</label>
+                        <input type="text" value="${item.question}" id="q-${index}">
+                    </div>
+                    <div class="form-group">
+                        <label>Resposta</label>
+                        <textarea id="a-${index}" rows="3">${item.answer}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveChanges() {
+            const savedContent = localStorage.getItem('siteContent');
+            const content = savedContent ? JSON.parse(savedContent) : window.siteContent;
+
+            content.faq = content.faq.map((item, index) => ({
+                question: document.getElementById(`q-${index}`).value,
+                answer: document.getElementById(`a-${index}`).value
+            }));
+
+            localStorage.setItem('siteContent', JSON.stringify(content));
+            alert('Alterações salvas com sucesso! As mudanças agora estão visíveis no site neste navegador.');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0. Load Content from Local Storage (if available)
+    const savedContent = localStorage.getItem('siteContent');
+    if (savedContent) {
+        window.siteContent = JSON.parse(savedContent);
+    }
+
     // 1. Header Scroll Effect
     const header = document.querySelector('.header');
     window.addEventListener('scroll', () => {
@@ -110,5 +116,48 @@ document.addEventListener('DOMContentLoaded', () => {
             moveSlider(e.touches[0].clientX);
         });
     }
+
+    // 5. Render Dynamic Content
+    const renderServices = () => {
+        const container = document.getElementById('services-container');
+        if (!container || !window.siteContent) return;
+
+        container.innerHTML = window.siteContent.services.map((service, index) => `
+            <div class="service-card fade-up" style="transition-delay: ${index * 0.1}s">
+                <img src="${service.image}" alt="${service.title}" class="service-img">
+                <div class="service-content">
+                    <span class="service-category">${service.category}</span>
+                    <h3>${service.title}</h3>
+                    <p>${service.description}</p>
+                    <div class="service-keyword">${service.keyword}</div>
+                </div>
+            </div>
+        `).join('');
+
+        // Re-observe new elements
+        const newElements = container.querySelectorAll('.fade-up');
+        newElements.forEach(el => observer.observe(el));
+    };
+
+    const renderFAQ = () => {
+        const container = document.getElementById('faq-container');
+        if (!container || !window.siteContent) return;
+
+        container.innerHTML = window.siteContent.faq.map(item => `
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <span>${item.question}</span>
+                    <div class="icon-plus">+</div>
+                </summary>
+                <div class="faq-answer">
+                    <p>${item.answer}</p>
+                </div>
+            </details>
+        `).join('');
+    };
+
+    // Initial Render
+    renderServices();
+    renderFAQ();
 
 });
