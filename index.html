@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RSS Studio Automotivo - Estética automotiva premium em Taboão da Serra. Polimento cristalizado, higienização interna e funilaria express.">
+    <meta name="keywords" content="Polimento Automotivo em Taboão da Serra, Limpeza de Bancos e Higienização, Funilaria Rápida e Pintura Express">
+    <title>RSS Studio Automotivo | Detalhamento e Estética Premium</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header (Cabeçalho) -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="RSS Studio Automotivo" onerror="this.src=''; this.alt='RSS STUDIO'; this.classList.add('text-logo')">
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#hero">Início</a></li>
+                    <li><a href="index.html#services">Serviços</a></li>
+                    <li><a href="index.html#transformation">Antes & Depois</a></li>
+                    <li><a href="faq.html">Dúvidas Frequentes</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="https://api.whatsapp.com/send?phone=5511950640196&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços." class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                Fale Conosco
+            </a>
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-toggle" aria-label="Abrir Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <ul>
+            <li><a href="index.html#hero">Início</a></li>
+            <li><a href="index.html#services">Nossa Especialidade</a></li>
+            <li><a href="index.html#transformation">Resultados</a></li>
+            <li><a href="faq.html">Dúvidas Frequentes</a></li>
+            <li><a href="index.html#contact">Agende Agora</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero (Primeira Seção) -->
+    <section id="hero" class="hero fade-in">
+        <div class="hero-bg">
+            <img src="secao1.jpg" alt="Car Detail Showcase">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 class="title-primary reveal-text">
+                Estética Automotiva<br>
+                <span>Premium em</span> Taboão da Serra
+            </h1>
+            <p class="hero-subtitle reveal-text delay-1">
+                Correção de pintura técnica, higienização premium e resultados impecáveis. Traga de volta o brilho perfeito do seu veículo em Taboão.
+            </p>
+            <div class="hero-actions reveal-text delay-2">
+                <a href="#services" class="btn btn-primary">Conheça os Serviços</a>
+                <a href="#transformation" class="btn btn-glass">Ver Transformações</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Offer (Segunda Seção) -->
+    <section id="services" class="services section">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="title-secondary">Estética Automotiva de <span class="highlight">Excelência</span></h2>
+                <p>Nós tratamos seu veículo com a exclusividade e a precisão técnica que ele merece.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Serviço 1 -->
+                <div class="service-card fade-up">
+                    <img src="polimento.jpg" alt="Serviço de Polimento Automotivo em Taboão da Serra" class="service-img">
+                    <div class="service-content">
+                        <span class="service-category">Estética</span>
+                        <h3>Polimento Cristalizado</h3>
+                        <span class="sr-only">Referência em polimento automotivo e cristalização em Taboão da Serra.</span>
+                        <p>Correção de pintura com proteção profunda e espelhamento premium.</p>
+                        <div class="service-keyword">#PolimentoAutomotivo</div>
+                    </div>
+                </div>
+
+                <!-- Serviço 2 -->
+                <div class="service-card fade-up delay-1">
+                    <img src="higienizacao.jpg" alt="Higienização Interna Automotiva e Limpeza de Bancos em Taboão da Serra" class="service-img">
+                    <div class="service-content">
+                        <span class="service-category">Higienização</span>
+                        <h3>Higienização Interna</h3>
+                        <span class="sr-only">Especialistas em lavagem de bancos e higienização interna de veículos em Taboão da Serra.</span>
+                        <p>Limpeza e desinfecção profunda com padrão de fábrica.</p>
+                        <div class="service-keyword">#LimpezaDeBancos</div>
+                    </div>
+                </div>
+
+                <!-- Serviço 3 -->
+                <div class="service-card fade-up delay-2">
+                    <img src="reparo-rapido.jpg" alt="Serviços de Funilaria Express e Micro Pintura em Taboão da Serra" class="service-img">
+                    <div class="service-content">
+                        <span class="service-category">Reparo</span>
+                        <h3>Funilaria Express</h3>
+                        <span class="sr-only">Oficina completa de funilaria rápida, martelinho e pintura express em Taboão da Serra.</span>
+                        <p>Reparos ágeis de amassados e riscos com secagem em cabine.</p>
+                        <div class="service-keyword">#FunilariaExpress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Transformation (Terceira Seção) -->
+    <section id="transformation" class="transformation section has-bg">
+        <div class="glow bottom-left"></div>
+        <div class="container relative z-10">
+            <div class="section-header fade-up">
+                <span class="badge">O Resultado</span>
+                <h2 class="title-secondary">A <span class="highlight">Transformação</span></h2>
+                <p>Veja a diferença que nossa equipe de especialistas pode fazer. Arraste para comparar o antes e o depois.</p>
+            </div>
+
+            <div class="comparison-container fade-up delay-1 mt-12">
+                <div class="comparison-slider">
+                    <!-- Before Image -->
+                    <img src="antes.jpg" alt="Antes da Estética Automotiva RSS Studio em Taboão da Serra" class="img-before">
+                    
+                    <!-- After Image -->
+                    <div class="img-after-wrapper">
+                        <img src="depois.jpg" alt="Depois da Estética Automotiva RSS Studio em Taboão da Serra" class="img-after">
+                    </div>
+                    
+                    <div class="slider-handle">
+                        <div class="arrows">&#8596;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ready for a masterpiece (Quarta Seção) -->
+    <section id="contact" class="cta-section section">
+        <div class="glow top-right"></div>
+        <div class="container container-sm">
+            <div class="cta-box fade-up">
+                <h2 class="title-primary">Pronto para a <span class="highlight">Perfeição?</span></h2>
+                <p>Traga seu carro para a RSS Studio Automotivo e recupere o acabamento de showroom.</p>
+                <div class="cta-buttons">
+                    <a href="https://api.whatsapp.com/send?phone=5511950640196&text=Ol%C3%A1!%20Desejo%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20meu%20ve%C3%ADculo." class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        (11) 95064-0196
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=5511953841112&text=Ol%C3%A1!%20Desejo%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20meu%20ve%C3%ADculo." class="btn btn-glass btn-large" target="_blank" rel="noopener noreferrer">
+                        (11) 95384-1112
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                     <img src="logo.png" alt="RSS Studio Automotivo" onerror="this.src=''; this.alt='RSS STUDIO'; this.classList.add('text-logo')">
+                </div>
+                <p class="brand-desc">Estética Premium em Taboão da Serra. A diferença está nos detalhes.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#transformation">Resultados</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Visite-nos</h4>
+                <p>Rua Benedito Marcelino Braga, 91<br> JD São Judas Tadeu - SP</p>
+                <a href="https://share.google/zAJ6oqtBfaMcM3TkG" class="text-link" target="_blank" rel="noopener noreferrer">
+                    Ver no Google Maps &rarr;
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 RSS Studio Automotivo. Todos os direitos reservados.</p>
+                <div class="socials">
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

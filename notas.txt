@@ -1,0 +1,69 @@
+{
+  "empresa": {
+    "nome": "RSS Studio Automotivo",
+    "slug": "rss-studio-automotivo-taboao",
+    "contatos": ["11950640196", "11953841112"],
+    "endereco": "Rua Benedito Marcelino Braga, 91 - JD São Judas Tadeu - SP",
+    "gmb_link": "https://share.google/zAJ6oqtBfaMcM3TkG"
+  },
+  "estetica": {
+    "tema": "Dark Mode Premium",
+    "cores": {
+      "background": "#000000",
+      "surface": "#121212",
+      "primary": "#ff751f",
+      "text": "#ffffff",
+      "glass": "rgba(255, 255, 255, 0.05)"
+    },
+    "fontes": {
+      "principal": "ITC Benguiat Condensed",
+      "apoio": "Inter, sans-serif"
+    }
+  }
+}
+
+[
+
+
+
+
+
+  {
+    "id": "01",
+    "categoria": "Estética",
+    "titulo": "Polimento Cristalizado",
+    "descricao": "Correção técnica de pintura com proteção de brilho profundo. Tecnologia de espelhamento premium.",
+    "palavra_chave": "Polimento Automotivo em Taboão da Serra"
+  },
+  {
+    "id": "02",
+    "categoria": "Higienização",
+    "titulo": "Higienização Interna Detalhada",
+    "descricao": "Desinfecção e limpeza profunda de estofados, painéis e carpetes com padrão de fábrica.",
+    "palavra_chave": "Limpeza de Bancos e Higienização"
+  },
+  {
+    "id": "03",
+    "categoria": "Reparo",
+    "titulo": "Funilaria e Pintura Express",
+    "descricao": "Reparos rápidos de pequenos amassados e riscos com secagem acelerada em cabine.",
+    "palavra_chave": "Funilaria Rápida e Pintura Express"
+  }
+]
+
+Cabeçalho
+
+Primeira seção
+
+segunda seção
+Our offer
+	Polimento
+	Higienização
+	Reparo rapido express
+terceira seção
+the transformation
+	antes e Depois
+Quarta seção 
+Ready for a masterpiece
+rodapé
+
