@@ -145,24 +145,36 @@
         }
 
         async function saveChanges() {
+            if (!currentContent) {
+                alert('Erro: Os dados ainda não foram carregados do banco. Aguarde ou recarregue a página.');
+                return;
+            }
+
             const btn = document.getElementById('btn-save-action');
             const status = document.getElementById('status-msg');
             
             btn.disabled = true;
             btn.innerText = 'Salvando na Nuvem...';
-            status.innerText = '';
 
             const newFaq = currentContent.faq.map((item, index) => ({
                 question: document.getElementById(`q-${index}`).value,
                 answer: document.getElementById(`a-${index}`).value
             }));
 
-            const updatedContent = { ...currentContent, faq: newFaq };
+            // Garantir que os serviços NUNCA sejam perdidos
+            const servicesToKeep = currentContent.services && currentContent.services.length > 0 
+                ? currentContent.services 
+                : window.siteContent.services;
+
+            const updatedContent = { 
+                services: servicesToKeep,
+                faq: newFaq 
+            };
 
             const { error } = await supabase
                 .from('site_data')
                 .update({ content: updatedContent })
-                .eq('id', 1); // Atualiza a linha 1
+                .eq('id', 1);
 
             if (error) {
                 status.style.color = '#ff4444';

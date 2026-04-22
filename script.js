@@ -5,25 +5,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     const SUPABASE_KEY = 'sb_publishable_S4WZO_OX4xJBYODyZrEhMg_KWmd9_me';
     const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
+    // Dados padrão caso o banco falhe
+    const defaultContent = {
+        faq: [
+            { question: "Quanto tempo leva o polimento?", answer: "Depende do estado do veículo, mas geralmente leva de 1 a 2 dias para um polimento cristalizado completo." },
+            { question: "Quais as formas de pagamento?", answer: "Aceitamos Cartões de Crédito (com parcelamento), PIX e Dinheiro." },
+            { question: "Preciso agendar com antecedência?", answer: "Sim, recomendamos o agendamento prévio para garantir a exclusividade do atendimento ao seu veículo." }
+        ]
+    };
+
     // Função para carregar dados
     const loadSiteData = async () => {
-        if (!supabase) return;
-        
-        const { data, error } = await supabase
-            .from('site_data')
-            .select('content')
-            .single();
+        window.siteContent = defaultContent; // Começa com o padrão
 
-        if (data && data.content) {
-            window.siteContent = data.content;
-            renderServices();
-            renderFAQ();
-        } else {
-            console.error('Erro ao carregar dados do Supabase:', error);
-            // Fallback para o content.js se o banco falhar
-            renderServices();
-            renderFAQ();
+        if (supabase) {
+            const { data, error } = await supabase
+                .from('site_data')
+                .select('content')
+                .single();
+
+            if (data && data.content) {
+                window.siteContent = data.content;
+            }
         }
+        
+        renderFAQ();
     };
 
     // 1. Header Scroll Effect
@@ -136,28 +142,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             moveSlider(e.touches[0].clientX);
         });
     }
-
-    // 5. Render Dynamic Content
-    const renderServices = () => {
-        const container = document.getElementById('services-container');
-        if (!container || !window.siteContent) return;
-
-        container.innerHTML = window.siteContent.services.map((service, index) => `
-            <div class="service-card fade-up" style="transition-delay: ${index * 0.1}s">
-                <img src="${service.image}" alt="${service.title}" class="service-img">
-                <div class="service-content">
-                    <span class="service-category">${service.category}</span>
-                    <h3>${service.title}</h3>
-                    <p>${service.description}</p>
-                    <div class="service-keyword">${service.keyword}</div>
-                </div>
-            </div>
-        `).join('');
-
-        // Re-observe new elements
-        const newElements = container.querySelectorAll('.fade-up');
-        newElements.forEach(el => observer.observe(el));
-    };
 
     const renderFAQ = () => {
         const container = document.getElementById('faq-container');
