@@ -6,6 +6,7 @@
     <title>Admin | RSS Studio Automotivo</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         .admin-container {
             max-width: 800px;
@@ -49,12 +50,17 @@
             width: 100%;
             margin-top: 2rem;
         }
+        #status-msg {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="admin-container">
-            <h1 class="title-secondary"><span class="highlight">Painel de Edição</span></h1>
+            <h1 class="title-secondary"><span class="highlight">Painel de Edição (Cloud)</span></h1>
             
             <!-- Login -->
             <div id="login-section" class="login-form active">
@@ -74,16 +80,22 @@
             <div id="editor-section" class="editor-section">
                 <h3>Editar Perguntas Frequentes (FAQ)</h3>
                 <div id="faq-list">
-                    <!-- Gerado via JS -->
+                    <p>Carregando dados da nuvem...</p>
                 </div>
-                <button onclick="saveChanges()" class="btn btn-primary btn-save">Salvar Alterações</button>
+                <button id="btn-save-action" onclick="saveChanges()" class="btn btn-primary btn-save">Publicar para Todos os Clientes</button>
+                <div id="status-msg"></div>
                 <button onclick="logout()" class="btn btn-glass" style="margin-top: 10px; width: 100%;">Sair</button>
             </div>
         </div>
     </div>
 
-    <script src="content.js"></script>
     <script>
+        const SUPABASE_URL = 'https://ocllgxuizuwmqnzzcxwg.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_S4WZO_OX4xJBYODyZrEhMg_KWmd9_me';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentContent = null;
+
         // Login Logic
         function login() {
             const user = document.getElementById('username').value;
@@ -103,13 +115,22 @@
         }
 
         // Editor Logic
-        function loadEditor() {
+        async function loadEditor() {
             const faqList = document.getElementById('faq-list');
-            // Carrega do localStorage ou do arquivo content.js
-            const savedContent = localStorage.getItem('siteContent');
-            const content = savedContent ? JSON.parse(savedContent) : window.siteContent;
+            
+            const { data, error } = await supabase
+                .from('site_data')
+                .select('content')
+                .single();
 
-            faqList.innerHTML = content.faq.map((item, index) => `
+            if (error) {
+                faqList.innerHTML = '<p style="color:red">Erro ao carregar do Supabase. Verifique se a tabela foi criada.</p>';
+                return;
+            }
+
+            currentContent = data.content;
+
+            faqList.innerHTML = currentContent.faq.map((item, index) => `
                 <div class="faq-edit-item">
                     <div class="form-group">
                         <label>Pergunta ${index + 1}</label>
@@ -123,18 +144,38 @@
             `).join('');
         }
 
-        function saveChanges() {
-            const savedContent = localStorage.getItem('siteContent');
-            const content = savedContent ? JSON.parse(savedContent) : window.siteContent;
+        async function saveChanges() {
+            const btn = document.getElementById('btn-save-action');
+            const status = document.getElementById('status-msg');
+            
+            btn.disabled = true;
+            btn.innerText = 'Salvando na Nuvem...';
+            status.innerText = '';
 
-            content.faq = content.faq.map((item, index) => ({
+            const newFaq = currentContent.faq.map((item, index) => ({
                 question: document.getElementById(`q-${index}`).value,
                 answer: document.getElementById(`a-${index}`).value
             }));
 
-            localStorage.setItem('siteContent', JSON.stringify(content));
-            alert('Alterações salvas com sucesso! As mudanças agora estão visíveis no site neste navegador.');
-            window.location.href = 'index.html';
+            const updatedContent = { ...currentContent, faq: newFaq };
+
+            const { error } = await supabase
+                .from('site_data')
+                .update({ content: updatedContent })
+                .eq('id', 1); // Atualiza a linha 1
+
+            if (error) {
+                status.style.color = '#ff4444';
+                status.innerText = 'Erro ao salvar: ' + error.message;
+                btn.disabled = false;
+                btn.innerText = 'Tentar Novamente';
+            } else {
+                status.style.color = '#00ff00';
+                status.innerText = '✓ Publicado com sucesso! Todos os clientes verão a mudança.';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
         }
     </script>
 </body>

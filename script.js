@@ -1,10 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
-    // 0. Load Content from Local Storage (if available)
-    const savedContent = localStorage.getItem('siteContent');
-    if (savedContent) {
-        window.siteContent = JSON.parse(savedContent);
-    }
+    // 0. Configuração Supabase
+    const SUPABASE_URL = 'https://ocllgxuizuwmqnzzcxwg.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_S4WZO_OX4xJBYODyZrEhMg_KWmd9_me';
+    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+    // Função para carregar dados
+    const loadSiteData = async () => {
+        if (!supabase) return;
+        
+        const { data, error } = await supabase
+            .from('site_data')
+            .select('content')
+            .single();
+
+        if (data && data.content) {
+            window.siteContent = data.content;
+            renderServices();
+            renderFAQ();
+        } else {
+            console.error('Erro ao carregar dados do Supabase:', error);
+            // Fallback para o content.js se o banco falhar
+            renderServices();
+            renderFAQ();
+        }
+    };
 
     // 1. Header Scroll Effect
     const header = document.querySelector('.header');
@@ -157,7 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Initial Render
-    renderServices();
-    renderFAQ();
+    loadSiteData();
 
 });
